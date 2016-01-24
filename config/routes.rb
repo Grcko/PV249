@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  resources :users_overview
   resources :tasks
-  devise_for :users
-  root to: "tasks#index"
+  #devise_for :users
+  devise_for :users, :controllers => {:registrations => "registrations"}
+  root to: 'tasks#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
