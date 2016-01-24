@@ -15,10 +15,10 @@ table
         td = user.surname
         td = user.email
         td = user.roles(:select => :name).collect(&:name)
-        td = link_to 'Show', user
-        td = link_to 'Edit', edit_user_path(user)
-        td = link_to 'Destroy', user, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = link_to 'Show', users_overview_path(user)
+        td = link_to 'Edit', edit_users_overview_path(user)
+        td = link_to 'Destroy', users_overview_path(user), data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
 
-= link_to 'New User', new_user_path
+= link_to 'New User', new_users_overview_path

@@ -3,6 +3,12 @@ Rails.application.routes.draw do
   resources :tasks
   #devise_for :users
   devise_for :users, :controllers => {:registrations => "registrations"}
+  namespace :api do
+    namespace :v1 do
+      match 'sessions' => 'sessions#destroy_my', :via => :delete
+      resources :sessions
+    end
+  end
   root to: 'tasks#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
