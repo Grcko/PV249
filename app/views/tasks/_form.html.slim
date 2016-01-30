@@ -7,6 +7,27 @@
           li = message
 
   .field
+    = f.label 'Street'
+    = f.text_field :address, :name => 'task[address_street]', :required => true
+
+  .field
+    = f.label 'Number'
+    = f.text_field :address, :name => 'task[address_number]', :required => true
+
+  .field
+    = f.label 'City'
+    = f.text_field :address, :name => 'task[address_city]'
+
+  .field
+    = f.label 'Country'
+    = f.text_field :address, :name => 'task[address_country]'
+
+  .field
+    = f.label :assignee
+    = f.select :assignee_id, @workers.collect {|p| [ p.name + ' ' + p.surname, p.id ] }, { include_blank: 'None' }
+
+  .field
     = f.label :desc
     = f.text_area :desc
+
   .actions = f.submit

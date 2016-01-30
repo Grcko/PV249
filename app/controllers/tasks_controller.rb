@@ -15,6 +15,9 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
+    @workers = User.with_role :worker
+    puts "workers:"
+    puts @workers
   end
 
   # GET /tasks/1/edit
@@ -25,6 +28,8 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
+    @task.creator = current_user
+    @task.state = State.find(STATE_NEW)
 
     respond_to do |format|
       if @task.save
@@ -69,6 +74,7 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:desc)
+      params.require(:task).permit(:address_street, :address_number,
+                                   :address_city, :address_country, :desc, :assignee_id)
     end
 end

@@ -5,9 +5,7 @@ module Api
 
       def destroy_my
         @user.update(authentication_token: nil)
-        render json: {
-            success: true
-        }
+        render json: {}
         return
       end
 
@@ -18,7 +16,6 @@ module Api
       if user.valid_password?(params[:password])
         ensure_authentication_token(user)
         render json: {
-            success: true,
             auth_token: user.authentication_token,
             email: user.email,
             name: user.name,
@@ -34,7 +31,6 @@ module Api
       def invalid_login_attempt
         warden.custom_failure!
         render json: {
-            success: false,
             message: "Error with your login or password"
         }, status: 401
       end

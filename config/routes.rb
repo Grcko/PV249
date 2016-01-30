@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       match 'sessions' => 'sessions#destroy_my', :via => :delete
       resources :sessions
+      resources :tasks
     end
   end
   root to: 'tasks#index'
