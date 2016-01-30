@@ -5,6 +5,11 @@ class Task < ActiveRecord::Base
   belongs_to :assignee, :class_name => User
   belongs_to :creator, required: true,:class_name => User, foreign_key: "creator_id", inverse_of: :created_tasks
   belongs_to :assignee, :class_name => User, foreign_key: "assignee_id", inverse_of: :assigned_tasks
+  before_destroy 'create_deleted_task'
+
+  def create_deleted_task
+    DeletedTask.create(task_id: self.id, assignee_id: self.assignee_id)
+  end
 
   def address_street=(string)
     setAddressIfNil
