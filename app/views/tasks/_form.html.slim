@@ -1,4 +1,4 @@
-= form_for @task do |f|
+= form_for setup_task(@task) do |f|
   - if @task.errors.any?
     #error_explanation
       h2 = "#{pluralize(@task.errors.count, "error")} prohibited this task from being saved:"
@@ -6,21 +6,22 @@
         - @task.errors.full_messages.each do |message|
           li = message
 
-  .field
-    = f.label 'Street'
-    = f.text_field :address, :name => 'task[address_street]', :required => true
+  = f.fields_for :address do |ff|
+    .field
+      = ff.label :street
+      = ff.text_field :street, :required => true
 
-  .field
-    = f.label 'Number'
-    = f.text_field :address, :name => 'task[address_number]', :required => true
+    .field
+      = ff.label :number
+      = ff.text_field :number, :required => true
 
-  .field
-    = f.label 'City'
-    = f.text_field :address, :name => 'task[address_city]'
+    .field
+      = ff.label :city
+      = ff.text_field :city
 
-  .field
-    = f.label 'Country'
-    = f.text_field :address, :name => 'task[address_country]'
+    .field
+      = ff.label :country
+      = ff.text_field :country
 
   .field
     = f.label :assignee

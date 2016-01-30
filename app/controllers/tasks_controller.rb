@@ -15,13 +15,12 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
-    @workers = User.with_role :worker
-    puts "workers:"
-    puts @workers
+    set_workers
   end
 
   # GET /tasks/1/edit
   def edit
+    set_workers
   end
 
   # POST /tasks
@@ -36,6 +35,7 @@ class TasksController < ApplicationController
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task }
       else
+        set_workers
         format.html { render :new }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
@@ -72,9 +72,12 @@ class TasksController < ApplicationController
       @task = Task.find(params[:id])
     end
 
+    def set_workers
+      @workers = User.with_role :worker
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:address_street, :address_number,
-                                   :address_city, :address_country, :desc, :assignee_id)
+      params.require(:task).permit(:desc, :assignee_id, address_attributes: [:street, :number, :city, :country])
     end
 end

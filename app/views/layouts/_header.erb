@@ -1,0 +1,16 @@
+<% if user_signed_in? %>
+    <ul class="hmenu">
+      <li>
+        <a href="/tasks">Tasks</a>
+      </li>
+      <li>
+        <a href="/users_overview">Users</a>
+      </li>
+      <li>
+        <a href="/users/edit">Profile</a>
+      </li>
+      <li>
+        <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+      </li>
+    </ul>
+<% end %>

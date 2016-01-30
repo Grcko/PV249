@@ -14,7 +14,11 @@ table
         td = user.name
         td = user.surname
         td = user.email
-        td = user.roles(:select => :name).collect(&:name)
+        - role_names = ''
+        - user.roles.each { |role| role_names << role.name
+        -   role != user.roles.last ? role_names << ', ' : ''
+        - }
+        td = role_names
         td = link_to 'Show', users_overview_path(user)
         td = link_to 'Edit', edit_users_overview_path(user)
         td = link_to 'Destroy', users_overview_path(user), data: {:confirm => 'Are you sure?'}, :method => :delete
