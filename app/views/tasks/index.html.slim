@@ -15,7 +15,7 @@ table
         - task.address.city.nil? ? address_str << ' ' + task.address.city : nil
         - task.address.country.nil? ? address_str << ', ' + task.address.country : nil
         td = address_str
-        td = task.assignee.name + ' ' + task.assignee.surname
+        td = task.assignee.nil? ? nil : task.assignee.name + ' ' + task.assignee.surname
         td = task.state.name
         td = link_to 'Show', task
         td = link_to 'Edit', edit_task_path(task)

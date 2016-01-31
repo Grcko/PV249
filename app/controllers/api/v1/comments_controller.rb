@@ -1,6 +1,6 @@
 module Api
   module V1
-    class CommentsController < TasksController
+    class CommentsController < Api::V1::TasksController
       before_action :set_task, only: [:create]
       before_action :set_comment, only: [:create]
 
