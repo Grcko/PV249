@@ -1,4 +1,5 @@
-= form_for @user, :url => url_for(:controller => 'users_overview', :action => 'create') do |f|
+- @user.email == nil ? action = 'create' : action = 'update'
+= form_for @user, :url => url_for(:controller => 'users_overview', :action => action) do |f|
   - if @user.errors.any?
     #error_explanation
       h2 = "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"

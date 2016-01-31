@@ -3,15 +3,20 @@ h1 Listing tasks
 table
   thead
     tr
-      th Desc
-      th
-      th
-      th
+      th Address
+      th Assignee
+      th State
 
   tbody
     - @tasks.each do |task|
       tr
-        td = task.desc
+        - address_str = ''
+        - address_str << task.address.street + ' ' + task.address.number
+        - task.address.city.nil? ? address_str << ' ' + task.address.city : nil
+        - task.address.country.nil? ? address_str << ', ' + task.address.country : nil
+        td = address_str
+        td = task.assignee.name + ' ' + task.assignee.surname
+        td = task.state.name
         td = link_to 'Show', task
         td = link_to 'Edit', edit_task_path(task)
         td = link_to 'Destroy', task, data: {:confirm => 'Are you sure?'}, :method => :delete

@@ -10,6 +10,7 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    set_new_comment
   end
 
   # GET /tasks/new
@@ -66,12 +67,17 @@ class TasksController < ApplicationController
     end
   end
 
-  private
+  protected
     # Use callbacks to share common setup or constraints between actions.
     def set_task
       @task = Task.find(params[:id])
     end
 
+    def set_new_comment
+      @comment = Comment.new
+    end
+
+  private
     def set_workers
       @workers = User.with_role :worker
     end

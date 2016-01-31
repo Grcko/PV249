@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :users_overview
   resources :tasks
+  # resources :comments
   #devise_for :users
   devise_for :users, :controllers => {:registrations => "registrations"}
   namespace :api do
@@ -8,8 +9,14 @@ Rails.application.routes.draw do
       match 'sessions' => 'sessions#destroy_my', :via => :delete
       resources :sessions
       resources :tasks
+      resource :comments
     end
   end
+
+  post "tasks/:id/comment", to: 'comments#create'
+  get "comment/:id", to: 'comments#edit'
+  put "comment/:id", to: 'comments#update'
+
   root to: 'tasks#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

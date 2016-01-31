@@ -5,7 +5,6 @@ module Api
 
       def index
         @current_time = Time.new.utc.iso8601
-        lastUpdate = params[:lastUpdate]
         if (lastUpdate != nil)
           @tasks = Task.where(assignee_id: @user.id).where('updated_at >= ?', lastUpdate)
           @deleted = DeletedTask.where(assignee_id: @user.id).where('created_at >= ?', lastUpdate)
@@ -21,9 +20,9 @@ module Api
         render :show
       end
 
-      private
-      def set_task
-        @task = Task.find(params[:id])
+      protected
+      def lastUpdate
+        params[:lastUpdate]
       end
 
       def validateAssignee
@@ -34,8 +33,9 @@ module Api
         return false
       end
 
-      def update_params
-        params.require(:task).permit(:state)
+      private
+      def set_task
+        @task = Task.find(params[:id])
       end
 
     end
