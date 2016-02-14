@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    @tasks = Task.where(company: current_user.company)
   end
 
   # GET /tasks/1
@@ -29,6 +29,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.creator = current_user
+    @task.company = current_user.company
     @task.state = State.find(STATE_NEW)
 
     respond_to do |format|
@@ -46,11 +47,14 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
+    puts 'Controller creator'
+    puts @task.creator
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
       else
+        set_workers
         format.html { render :edit }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
@@ -79,11 +83,11 @@ class TasksController < ApplicationController
 
   private
     def set_workers
-      @workers = User.with_role :worker
+      @workers = User.where(company: current_user.company).with_role :worker
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:desc, :assignee_id, address_attributes: [:street, :number, :city, :country])
+      params.require(:task).permit(:desc, :assignee_id, :time, address_attributes: [:street, :number, :city, :country])
     end
 end

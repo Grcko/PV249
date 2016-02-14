@@ -8,7 +8,7 @@ module Api
         @current_time = Time.new.utc.iso8601
         if (lastUpdate != nil)
           @comments = Comment.joins(:task).where('tasks.assignee_id = ?', @user)
-                          .where('comments.created_at >= ?', lastUpdate).preload('task')
+                          .where('comments.updated_at >= ?', lastUpdate).preload('task')
         else
           @comments = Comment.joins(:task).where('tasks.assignee_id = ?', @user).preload('task')
         end

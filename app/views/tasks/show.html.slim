@@ -14,7 +14,7 @@ table
   tbody
     - @task.comments.each do |comment|
       tr
-        td = comment.creator.name + ' ' + comment.creator.surname
+        td = comment.creator.web_name
         td = comment.text
         td = comment.created_at
         /td = link_to 'Show', task
@@ -39,4 +39,4 @@ br
 
 = link_to 'Edit', edit_task_path(@task)
 '|
-= link_to 'Back', tasks_path
+= link_to 'Destroy', @task, data: {:confirm => 'Are you sure?'}, :method => :delete

@@ -11,3 +11,5 @@
 /log/*
 !/log/.keep
 /tmp
+/th-pg-config=
+/th-pg-config=/*

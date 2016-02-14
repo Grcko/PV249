@@ -29,12 +29,16 @@ gem 'slim-rails'
 gem 'rolify'
 gem 'cancancan', '~> 1.10'
 gem 'less-rails', '~> 2.7.1' #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-gem 'twitter-bootstrap-rails'
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'autoprefixer-rails'
 gem 'letter_opener'
 gem 'therubyracer'
 
 gem 'rails_12factor', group: :production
 gem 'figaro'
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.37'
+gem 'jasny-bootstrap-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -59,4 +63,4 @@ group :development do
   gem 'better_errors'
 end
 
-ruby '2.2.1'
+ruby '2.2.3'

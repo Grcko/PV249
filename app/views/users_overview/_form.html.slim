@@ -1,4 +1,4 @@
-- @user.email == nil ? action = 'create' : action = 'update'
+- @user.id == nil ? action = 'create' : action = 'update'
 = form_for @user, :url => url_for(:controller => 'users_overview', :action => action) do |f|
   - if @user.errors.any?
     #error_explanation
@@ -16,6 +16,24 @@
   .field
     = f.label :email
     = f.email_field :email
+
+  = f.fields_for :role do |ff|
+      .checkbox-inline
+        = ff.label :manager
+        = ff.check_box :manager
+      /hidden_field_tag(role, 0)
+      /check_box_tag(role, 1, @user.has_role?(role))
+      .checkbox-inline
+        = ff.label :worker
+        = ff.check_box :worker
+
+  /<% @roles.each do | role | %>
+  /  <%= f.label(role) do %>
+  /    role.name
+  /    <%= hidden_field_tag(role, 0) %>
+  /    <%= check_box_tag(role, 1, @user.has_role?(role)) %>
+  /  <% end %>
+  /  <% end %>
   .field
     = f.label :password
     = f.password_field :password

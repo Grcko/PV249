@@ -1,6 +1,4 @@
-h1 Listing users
-
-table
+table class='table-hover table'
   thead
     tr
       th Name
@@ -8,10 +6,12 @@ table
       th Email
       th Role
 
-  tbody
+  tbody data-link='row' class='rowlink'
     - @users.each do |user|
       tr
-        td = user.name
+        td
+          a href = users_overview_path(user)
+            = user.name
         td = user.surname
         td = user.email
         - role_names = ''
@@ -19,10 +19,6 @@ table
         -   role != user.roles.last ? role_names << ', ' : ''
         - }
         td = role_names
-        td = link_to 'Show', users_overview_path(user)
-        td = link_to 'Edit', edit_users_overview_path(user)
-        td = link_to 'Destroy', users_overview_path(user), data: {:confirm => 'Are you sure?'}, :method => :delete
-
 br
 
 = link_to 'New User', new_users_overview_path

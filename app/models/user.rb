@@ -22,4 +22,12 @@ class User < ActiveRecord::Base
   def company_name=(string)
     self.company = Company.create(name: string)
   end
+
+  def web_name
+    if self.name.empty? && self.surname.empty?
+      return self.email
+    else
+      return self.name + ' ' + self.surname
+    end
+  end
 end

@@ -23,9 +23,19 @@
       = ff.label :country
       = ff.text_field :country
 
+  .row
+    div class='col-sm-6'
+      div class='input-group date' id='datetimepicker'
+        = f.label :time
+        = f.text_field :time
+        /input type='text' id='datetimepicker' name='task[time]' value=@task.time
+        span class="input-group-addon"
+          span class="glyphicon glyphicon-calendar"
+    script type="text/javascript" $(function () {$('#datetimepicker').datetimepicker();});
+
   .field
     = f.label :assignee
-    = f.select :assignee_id, @workers.collect {|p| [ p.name + ' ' + p.surname, p.id ] }, { include_blank: 'None' }
+    = f.select :assignee_id, @workers.collect {|p| [ p.web_name , p.id ] }, { include_blank: 'None' }
 
   .field
     = f.label :desc

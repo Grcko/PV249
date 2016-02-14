@@ -12,4 +12,4 @@ p
 
 = link_to 'Edit', edit_users_overview_path(@user)
 '|
-= link_to 'Back', :back
+= link_to 'Destroy', users_overview_path(@user), data: {:confirm => 'Are you sure? All the tasks assigned to this user will be destroyed as well!'}, :method => :delete

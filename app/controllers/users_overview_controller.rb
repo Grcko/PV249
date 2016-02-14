@@ -3,8 +3,7 @@ class UsersOverviewController < ApplicationController
 
   # GET /users
   def index
-    company = current_user.company
-    @users = User.where(company: company)
+    set_users
   end
 
   # GET /users/1
@@ -57,8 +56,9 @@ class UsersOverviewController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user.destroy
+    set_users
     respond_to do |format|
-      format.html { redirect_to @user, notice: 'User was successfully destroyed.' }
+      format.html { redirect_to '/users_overview', notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -67,6 +67,10 @@ class UsersOverviewController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = User.find_by(id: params[:id], company: current_user.company)
+  end
+
+  def set_users
+    @users = User.where(company: current_user.company).where.not(id: current_user.id)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

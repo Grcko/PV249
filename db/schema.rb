@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160131103414) do
+ActiveRecord::Schema.define(version: 20160214095921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,10 +77,12 @@ ActiveRecord::Schema.define(version: 20160131103414) do
     t.integer  "state_id"
     t.integer  "creator_id"
     t.integer  "assignee_id"
+    t.integer  "company_id"
   end
 
   add_index "tasks", ["address_id"], name: "index_tasks_on_address_id", using: :btree
   add_index "tasks", ["assignee_id"], name: "index_tasks_on_assignee_id", using: :btree
+  add_index "tasks", ["company_id"], name: "index_tasks_on_company_id", using: :btree
   add_index "tasks", ["creator_id"], name: "index_tasks_on_creator_id", using: :btree
   add_index "tasks", ["state_id"], name: "index_tasks_on_state_id", using: :btree
 
@@ -123,6 +125,7 @@ ActiveRecord::Schema.define(version: 20160131103414) do
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
   add_foreign_key "tasks", "addresses"
+  add_foreign_key "tasks", "companies"
   add_foreign_key "tasks", "states"
   add_foreign_key "users", "companies"
   add_foreign_key "users", "roles"
